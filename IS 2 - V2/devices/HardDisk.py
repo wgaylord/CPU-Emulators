@@ -1,6 +1,9 @@
 
 RAM_ADDRESSES = [2,3,4] #addr,control,data
 INTURRPT = 16 #called when read finished
+HARDDISKNAME = "test"
+SIZE = 2**28
+
 
 def binSplit(x):
     t = ""
@@ -19,7 +22,7 @@ def binJoin(sign,x,y):
 
 class HardDisk:
     
-    data = open("test.bin","r+b")
+    data = open(HARDDISKNAME+".bin","r+b")
     
     
     def tick(self,ram,prom):
@@ -37,3 +40,10 @@ class HardDisk:
 
     def CleanUp(self):
         data.close()
+        
+if __name__ == "__main__":
+    t = open(HARDDISKNAME+".bin","wb+")
+    e = size/(2**16)
+    for x in xrange(e):
+        t.write(bytearray([0]*(3*(2**16))))
+        t.flush()

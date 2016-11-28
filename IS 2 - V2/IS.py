@@ -21,7 +21,7 @@ Return = 15
 Requires2Lines = [SET,LOAD,STORE,IF,ITS]
 
 
-str2OP = {'ADD':0,'ADDi':1,'SUB':2,'OR':3,'AND':4,'XOR':5,'SET':6,'MOVE':7,'LOAD':8,'STORE':9,'PUSH':10,'POP':11,'IF':12,'ITS':13,'ITT':14,'Return':15}
+str2OP = {"ADD":0,"ADDi":1,"SUB":2,"OR":3,"AND":4,"XOR":5,"SET":6,"MOVE":7,"LOAD":8,"STORE":9,"PUSH":10,"POP":11,"IF":12,"ITS":13,"ITT":14,"Return":15}
 
 class Instruction:
     
@@ -30,7 +30,7 @@ class Instruction:
         self.A = A
         self.B = B
         self.C = C
-        self.raw = OP +" " +A+' '+B+" "+C
+        self.raw = OP +" " +A+" "+B+" "+C
         self.op_int = int(OP,2)
         self.A_int = int(A,2)
         self.B_int = int(B,2)
