@@ -17,33 +17,31 @@ cpu = MC2.cpu(mem)
 devices = []
 
 
-devicesEnabled = [""]
+devicesEnabled = ["PROM"]
 
 for device_name in source.list_plugins():
     if device_name in devicesEnabled:
         device = source.load_plugin(device_name)
         exec("device = device."+device_name+"()")
-        
         devices.append(device)
 
 def tickDevices(cpu,devices):
     for device in devices:
-        intrupt = device.tick(cpu.memory.RAM)
+        intrupt = device.tick(cpu.memory.RAM,cpu.memory.PROM)
         if intrupt:
             cpu.scheduleIntrrupt(intrupt)
 
 while not cpu.memory.PROM.read(cpu.PC).raw == IS.Instruction('0000','0000','0000','0000').raw:
-    #print cpu.PC
-    #print cpu.memory.REG.exportRegs()
     cpu.fetchIS()
-    #cpu.execute()
     try:
         cpu.execute()
     except Exception as e:
         print e
         print "Halted!"
         exit()
-
     tickDevices(cpu,devices)
     cpu.checkIntruppts()
     cpu.PC = cpu.PC + 1
+
+    for device in devices:
+        device.CleanUp()

@@ -3,7 +3,7 @@ class RamUsage:
 
     
     q = 0
-    def tick(self,ram):
+    def tick(self,ram,prom):
         x = ram.exportRAM()
         used = 0
         for z in x:
