@@ -23,16 +23,16 @@ class HardDisk:
     
     
     def tick(self,ram,prom):
-        addr = int(bin(ram.read(3))[2:4]+bin(ram.read(2))[2:],2)
-        control = int(bin(ram.read(3))[2:][4:],2)
+        addr = int(bin(ram.read(RAM_ADDRESSES[1]))[2:4]+bin(ram.read(RAM_ADDRESSES[0]))[2:],2)
+        control = int(bin(ram.read(RAM_ADDRESSES[1]))[2:][4:],2)
         data.seek(3*addr)
         if control == 0: #Read disk
             
             bytes = data.read(3)
-            ram.write(4,binJoin(bytes[0],bytes[1],bytes[2]))
-            return 16
+            ram.write(RAM_ADDRESSES[2],binJoin(bytes[0],bytes[1],bytes[2]))
+            return INTURRPT
         elif control = 1: #write disk
-            data.write(binSplit(ram.read(4)))
+            data.write(binSplit(ram.read(RAM_ADDRESSES[2])))
             data.flush()
 
     def CleanUp(self):
