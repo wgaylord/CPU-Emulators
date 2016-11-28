@@ -10,14 +10,14 @@ source = plugin_base.make_plugin_source(searchpath=['devices'])
 
 mem = Memory.memory()
 
-mem.loadProm("Test.asm")
+mem.loadProm("asm\Test.asm")
 
 cpu = MC2.cpu(mem)
 
 devices = []
 
 
-devicesEnabled = ["RamUsage"]
+devicesEnabled = [""]
 
 for device_name in source.list_plugins():
     if device_name in devicesEnabled:
