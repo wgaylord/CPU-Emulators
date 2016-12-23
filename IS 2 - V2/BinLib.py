@@ -1,8 +1,3 @@
-
-
-
-
-
 def toTwoComp(n):
     s = bin(n & int("1"*16, 2))[2:]
     return ("{0:0>%s}" % (16)).format(s)
@@ -21,6 +16,3 @@ def fromTwoComp(n):
         return (-int(num,2))-1
     else:
         return int(n,2)
-        
-
-    

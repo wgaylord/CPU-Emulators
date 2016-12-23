@@ -17,7 +17,7 @@ cpu = MC2.cpu(mem)
 devices = []
 
 
-devicesEnabled = ["PROM"]
+devicesEnabled = ["MemMappedScreen"]
 
 for device_name in source.list_plugins():
     if device_name in devicesEnabled:
@@ -33,15 +33,12 @@ def tickDevices(cpu,devices):
 
 while not cpu.memory.PROM.read(cpu.PC).raw == IS.Instruction('0000','0000','0000','0000').raw:
     cpu.fetchIS()
-    try:
-        cpu.execute()
-    except Exception as e:
-        print e
-        print "Halted!"
-        exit()
+    time.sleep(.1)
+    cpu.execute()
+    
     tickDevices(cpu,devices)
     cpu.checkIntruppts()
     cpu.PC = cpu.PC + 1
 
-    for device in devices:
-        device.CleanUp()
+for device in devices:
+    device.CleanUp()

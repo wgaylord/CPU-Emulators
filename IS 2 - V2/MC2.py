@@ -42,7 +42,7 @@ class cpu:
             self.memory.REG.write(self.currentInstruction.C_int,w)
         elif self.currentInstruction.op_int == IS.SUB:
             q = self.memory.REG.read(self.currentInstruction.A_int)-self.memory.REG.read(self.currentInstruction.B_int)
-            w = fromTwoComp(BinLib.toTwoComp(q))
+            w = BinLib.fromTwoComp(BinLib.toTwoComp(q))
             if not q == w:
                 self.scheduleIntrrupt(3) #Underflow
             self.memory.REG.write(self.currentInstruction.C_int,w)

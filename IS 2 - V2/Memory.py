@@ -83,7 +83,7 @@ class stack:
 class memory:
     Stack = stack(256)
     REG = regs(16)
-    RAM = ram(16)#(2**15))
+    RAM = ram((2**15))
     PROM = ram((2**16),IS.Instruction('0000','0000','0000','0000'))
     
     def __init__(self):
