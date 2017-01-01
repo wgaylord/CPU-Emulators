@@ -3,6 +3,9 @@ import IS
 
 
 class PROM:
+    def __init__(self):
+        self.TickTime = 0
+        self.currentTick = 0
     def tick(self,ram,prom):
         control = ram.read(0)
         addr = int(BinLib.toTwoComp(ram.read(1)),2)

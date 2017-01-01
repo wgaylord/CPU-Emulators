@@ -31,16 +31,18 @@ def screen():
 
 class MemMappedScreen:
     def __init__(self):
+        self.TickTime = 6
+        self.currentTick = 0
         self.screenThread = Thread(target=screen)
         self.screenThread.start()
     def tick(self,ram,prom):
         
         for x in xrange(0,16):
-            #print RAM[x],RAM[x+1]
+            #print RAM[x],ram.read(RAM[x])
             q = BinLib.toTwoComp(ram.read(RAM[x]))
             
             for y in xrange(16):
-                buffer.putpixel((x,y),(255*int(q[y]),255*int(q[y]),255*int(q[y])))
+                buffer.putpixel((y,x),(255*int(q[y]),255*int(q[y]),255*int(q[y])))
             
         if not running:
             exit()

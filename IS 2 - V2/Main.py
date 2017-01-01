@@ -27,15 +27,19 @@ for device_name in source.list_plugins():
 
 def tickDevices(cpu,devices):
     for device in devices:
-        intrupt = device.tick(cpu.memory.RAM,cpu.memory.PROM)
-        if intrupt:
-            cpu.scheduleIntrrupt(intrupt)
+        if device.currentTick == device.TickTime:
+            intrupt = device.tick(cpu.memory.RAM,cpu.memory.PROM)
+            device.currentTick = 0
+            if intrupt:
+                cpu.scheduleIntrrupt(intrupt)
+        else:
+            device.currentTick +=1
 
 while not cpu.memory.PROM.read(cpu.PC).raw == IS.Instruction('0000','0000','0000','0000').raw:
     cpu.fetchIS()
     time.sleep(.1)
     cpu.execute()
-    
+    #print cpu.memory.REG.exportREG()
     tickDevices(cpu,devices)
     cpu.checkIntruppts()
     cpu.PC = cpu.PC + 1

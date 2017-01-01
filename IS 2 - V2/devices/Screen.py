@@ -42,6 +42,8 @@ def screen():
 
 class Screen:
     def __init__(self):
+        self.TickTime = 6
+        self.currentTick = 0
         self.screenThread = Thread(target=screen)
         self.screenThread.start()
     def tick(self,ram,prom):

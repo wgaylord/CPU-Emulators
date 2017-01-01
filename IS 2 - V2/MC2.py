@@ -88,6 +88,7 @@ class cpu:
         elif self.currentInstruction.op_int == IS.STORE:
             
             if self.currentInstruction.second:
+                #print "STORED"
                 self.memory.RAM.write(self.currentInstruction.second.AsAddress,self.memory.REG.read(self.currentInstruction.A_int))
             else:
                 #print "STORE"
@@ -117,7 +118,7 @@ class cpu:
             if self.currentInstruction.A_int == 1:
                 raise Exception
             elif self.inIntruppt:
-                self.memory.REG.importRegs(self.tempRegs)    
+                self.memory.REG.importREG(self.tempRegs)    
                 self.inIntruppt = False
                 current_int = -1
                 self.PC = self.return_addr
@@ -136,7 +137,7 @@ class cpu:
                 for x in xrange(256):
                     if self.intrupptCalled[x] and not self.intrupptTable[x] == None :
                         current_int = x
-                        self.tempRegs = self.memory.REG.exportRegs()
+                        self.tempRegs = self.memory.REG.exportREG()
                         self.intrupptCalled[x] = False
                         self.inIntruppt = True
                         return_addr = self.PC + 1

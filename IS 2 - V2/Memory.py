@@ -26,10 +26,10 @@ class regs:
             except:
                 raise Exception
                 
-    def exportRegs(self):
+    def exportREG(self):
         return self.__regs
     
-    def importRegs(self,reg):
+    def importREG(self,reg):
         self.__regs = reg
 
 class ram:
