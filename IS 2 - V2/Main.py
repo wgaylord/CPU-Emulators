@@ -2,6 +2,7 @@ import MC2
 import IS
 import Memory
 import time
+import sys
 from pluginbase import PluginBase
 
 
@@ -10,7 +11,8 @@ source = plugin_base.make_plugin_source(searchpath=['devices'])
 
 mem = Memory.memory()
 
-mem.loadProm("asm\Test.asm")
+#mem.loadPromSudoASM("asm\Test.asm")
+mem.loadPromFromBin(sys.argv[1])
 
 cpu = MC2.cpu(mem)
 
@@ -37,7 +39,7 @@ def tickDevices(cpu,devices):
 
 while not cpu.memory.PROM.read(cpu.PC).raw == IS.Instruction('0000','0000','0000','0000').raw:
     cpu.fetchIS()
-    time.sleep(.1)
+    #time.sleep(.01)
     cpu.execute()
     #print cpu.memory.REG.exportREG()
     tickDevices(cpu,devices)

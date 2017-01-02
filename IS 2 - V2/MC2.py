@@ -48,25 +48,35 @@ class cpu:
             self.memory.REG.write(self.currentInstruction.C_int,w)
         elif self.currentInstruction.op_int == IS.OR:
             q = self.memory.REG.read(self.currentInstruction.A_int) | self.memory.REG.read(self.currentInstruction.B_int)
-            self.memory.write(self.currentInstruction.C_int,q)
+            self.memory.REG.write(self.currentInstruction.C_int,q)
         elif self.currentInstruction.op_int == IS.AND:
             q = self.memory.REG.read(self.currentInstruction.A_int) & self.memory.REG.read(self.currentInstruction.B_int)
-            self.memory.write(self.currentInstruction.C_int,q)    
+            self.memory.REG.write(self.currentInstruction.C_int,q)    
         elif self.currentInstruction.op_int == IS.XOR:
             q = self.memory.REG.read(self.currentInstruction.A_int) ^ self.memory.REG.read(self.currentInstruction.B_int)
-            self.memory.write(self.currentInstruction.C_int,q)     
+            self.memory.REG.write(self.currentInstruction.C_int,q)     
         elif self.currentInstruction.op_int == IS.MOVE:
             self.memory.REG.write(self.currentInstruction.C_int, self.memory.REG.read(self.currentInstruction.A_int))
-        elif self.currentInstruction.op_int == IS.PUSH:
-            try:
-                self.memory.Stack.push(self.memory.REG.read(self.currentInstruction.A_int))  
-            except:
-                self.scheduleIntrrupt(1) #Overflow Data Stack
-        elif self.currentInstruction.op_int == IS.POP:
-            try:
-                self.memory.REG.write(self.currentInstruction.C_int,self.memory.Stack.pop()  )
-            except:
-                self.scheduleIntrrupt(2) #Data Stack Underflow
+        elif self.currentInstruction.op_int == IS.STACK:
+            if self.currentInstruction.B_int == 0:
+                try:
+                    self.memory.Stack.push(self.memory.REG.read(self.currentInstruction.A_int))  
+                except:
+                    self.scheduleIntrrupt(1) #Overflow Data Stack
+            else:
+                try:
+                    self.memory.REG.write(self.currentInstruction.C_int,self.memory.Stack.pop()  )
+                except:
+                    self.scheduleIntrrupt(2) #Data Stack Underflow
+        elif self.currentInstruction.op_int == IS.SHIFT:
+            #print self.currentInstruction
+            if self.currentInstruction.B_int == 0:
+                #Left shift
+                
+                self.memory.REG.write(self.currentInstruction.C_int,BinLib.rotl(self.memory.REG.read(self.currentInstruction.A_int)))
+            else:
+                #Right Shift
+                self.memory.REG.write(self.currentInstruction.C_int,BinLib.rotr(self.memory.REG.read(self.currentInstruction.A_int)))
         elif self.currentInstruction.op_int == IS.ITT:
             self.intrupptTimer[self.currentInstruction.AB] = self.currentInstruction.C_int
         elif self.currentInstruction.op_int == IS.ITS:

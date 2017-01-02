@@ -31,7 +31,7 @@ def screen():
 
 class MemMappedScreen:
     def __init__(self):
-        self.TickTime = 6
+        self.TickTime = 0
         self.currentTick = 0
         self.screenThread = Thread(target=screen)
         self.screenThread.start()

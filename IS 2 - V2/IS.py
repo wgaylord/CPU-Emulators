@@ -10,8 +10,8 @@ SET    = 6
 MOVE    = 7
 LOAD   = 8
 STORE  = 9
-PUSH   = 10
-POP    = 11
+STACK   = 10
+SHIFT    = 11
 IF     = 12
 ITS    = 13
 ITT    = 14
@@ -21,7 +21,7 @@ Return = 15
 Requires2Lines = [SET,LOAD,STORE,IF,ITS]
 
 
-str2OP = {"ADD":0,"ADDi":1,"SUB":2,"OR":3,"AND":4,"XOR":5,"SET":6,"MOVE":7,"LOAD":8,"STORE":9,"PUSH":10,"POP":11,"IF":12,"ITS":13,"ITT":14,"Return":15}
+str2OP = {"ADD":0,"ADDI":1,"SUB":2,"OR":3,"AND":4,"XOR":5,"SET":6,"MOVE":7,"LOAD":8,"STORE":9,"STACK":10,"SHIFT":11,"IF":12,"ITS":13,"ITT":14,"Return":15}
 
 class Instruction:
     
@@ -49,3 +49,5 @@ class Instruction:
             if self.C_int > 0:
                 return False
         return self.op_int in Requires2Lines
+    def __repr__(self):
+        return "OP: "+ self.op +" A: " +self.A+" B: "+self.B+" C: "+self.C

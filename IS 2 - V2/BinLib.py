@@ -16,3 +16,21 @@ def fromTwoComp(n):
         return (-int(num,2))-1
     else:
         return int(n,2)
+        
+def rotl(num):
+    bit = num & (1 << (16-1))
+    num <<= 1
+    if(bit):
+        num |= 1
+    num &= (2**16-1)
+
+    return num
+
+def rotr(num):
+    num &= (2**16-1)
+    bit = num & 1
+    num >>= 1
+    if(bit):
+        num |= (1 << (16-1))
+
+    return num
