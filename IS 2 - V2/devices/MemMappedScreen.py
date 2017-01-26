@@ -1,6 +1,7 @@
 import pygame
 import BinLib
 from PIL import Image
+import time
 from threading import Thread
 
 RAM = [16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
@@ -18,7 +19,6 @@ def screen():
     pygame.init()
 
     screen = pygame.display.set_mode((640,640))
-    
     while running:
         t = buffer.resize((640,640)).tobytes()
         img=pygame.image.frombuffer(t,(640,640),"RGB")
@@ -35,6 +35,8 @@ class MemMappedScreen:
         self.currentTick = 0
         self.screenThread = Thread(target=screen)
         self.screenThread.start()
+        print("Initalizing pygame.")
+        time.sleep(.5)
     def tick(self,ram,prom):
         
         for x in xrange(0,16):
