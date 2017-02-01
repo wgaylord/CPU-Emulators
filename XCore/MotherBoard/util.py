@@ -21,9 +21,9 @@ def format(t):
 
 def rollover(num):
     if num >= 2**15:
-        return (-2**15)-(num-(2**15))
+        return 0-(num-(2**15))
     if num <= -2**15:
-        return (2**15)+(num+(2**15))
+        return 0+(num+(2**15))
     return num
 
 def rotl(num):

@@ -34,23 +34,23 @@ class regs:
 
 class ram:
     def __init__(self,size,fill = 0):
-        self.__ram = [fill]*size 
+        self.data = [fill]*size 
         
     
     def write(self,addr,data):
         try:
-            self.__ram[addr] = data
+            self.data[addr] = data
         except:
             print addr
     def read(self,addr):
         
-        return self.__ram[addr]
+        return self.data[addr]
         
     def exportRAM(self):
-        return self.__ram
+        return self.data
      
     def importRAM(self,ram):
-        self.__ram = ram
+        self.data = ram
         
         
 class stack:

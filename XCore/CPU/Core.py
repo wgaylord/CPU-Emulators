@@ -123,10 +123,15 @@ class CoreX:
                     return
             self.PC +=1
         elif op == 8: #IO
+
             if c == 1:
                 self.PORTS[a]=self.REG.read(b)
+            elif c == 2:
+                self.REG.write(b,self.PORTS[self.REG.read(a)])
+            elif c == 3:
+                self.PORTS[self.REG.read(a)] = self.REG.read(b)
             else:
-                self.REG.write(b,self.PORTS[a])
+                self.REG.write(b, self.PORTS[a])
         elif op == 9: #SFT
             if c == 1:
                 self.REG.write(b,util.rotr(self.REG.read(a)))
